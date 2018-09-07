@@ -1,24 +1,19 @@
-# README
+# Real Time Charter
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Quick start
 
-Things you may want to cover:
+Clone this repository:
 
-* Ruby version
+```bash
+$ cd my-projects-env
+$ git clone https://github.com/erin889/real-time-charter.git
+```
 
-* System dependencies
+Spining up the application:
 
-* Configuration
+```bash
+cd real-time-charter
+rails s
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Go to [http://localhost:8000](http://localhost:3000/music-charts).
