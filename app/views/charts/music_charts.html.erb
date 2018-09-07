@@ -1,0 +1,106 @@
+
+<div id="container" style="min-width: 310px;max-width: 800px;height: 400px;margin: 0 auto"></div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<script type="text/javascript">
+
+  function is_empty(value) {
+    return value != null;
+  }
+
+  funded_percent_1 = is_empty(<%= @hours_funding_percents_1.to_json.html_safe %>) ? <%= @hours_funding_percents_1.to_json.html_safe %> : [12, 2, 34, 65, 2]
+  funded_percent_2 = is_empty(<%= @hours_funding_percents_2.to_json.html_safe %>) ? <%= @hours_funding_percents_2.to_json.html_safe %> : [10, 20, 25, 30, 35]
+  funded_percent_3 = is_empty(<%= @hours_funding_percents_3.to_json.html_safe %>) ? <%= @hours_funding_percents_3.to_json.html_safe %> : [4, 7, 87, 123, 34]  
+  loan_name_1 = is_empty(<%= @loan_name_1.to_json.html_safe %>) ? <%= @loan_name_1.to_json.html_safe %> : 'IDOL-BTS'
+  loan_name_2 = is_empty(<%= @loan_name_2.to_json.html_safe %>) ? <%= @loan_name_2.to_json.html_safe %> : 'Siren-SUNMI'
+  loan_name_3 = is_empty(<%= @loan_name_3.to_json.html_safe %>) ? <%= @loan_name_3.to_json.html_safe %> : 'Shoot Me-DAY6'
+
+  date = new Date()
+  month = Number(date.getMonth())+1
+
+  Highcharts.chart('container', {
+
+    chart: {
+       backgroundColor: '#FFF',
+       polar: true,
+       type: 'line'
+    },
+
+    title: {
+      text: 'Real-Time Listening TOP 3',
+      style: {
+        color: '#9b6bcc',
+        font: '22px "Open Sans", sans-serif',
+        align: 'center'
+      }
+    },
+
+    subtitle: {
+      text: 'Updated at: ' + date.getFullYear() + "." + month + "." + date.getDate() + " " + date.getHours() + ":00",
+      style: {
+        color: '#723487',
+        font: 'bold 18px "Trebuchet MS", Verdana, sans-serif'
+        
+      }
+    },
+
+    xAxis: {
+      type: 'datetime',
+      labels: {
+        formatter: function() {
+          return '<span style="fill: #9b6bcc;">' + Highcharts.dateFormat('%d %b %H:%M', this.value) + '</span>';
+        }
+      }
+    },
+
+    yAxis: {
+      min: 0,
+      max: 100,
+      title: {
+        text: 'Listening Amount',
+        style: {
+          color: '#9b6bcc'
+        }
+      },
+      labels: {
+        formatter: function() {
+          return this.value + 'k';
+        }
+      }
+    },
+
+    plotOptions: {
+      series: {
+        label: {
+          connectorAllowed: false
+        }
+      },
+      line: {
+        enableMouseTracking: true
+      }
+    },
+
+    series: [{ name: loan_name_1, data: funded_percent_1, color: '#9b6bcc', pointStart: Date.now()-24*3600*1000+11*3600*1000, pointInterval: 3600 * 1000},
+             { name: loan_name_2, data: funded_percent_2, color: '#2ecc71', pointStart: Date.now()-24*3600*1000+11*3600*1000, pointInterval: 3600 * 1000},
+             { name: loan_name_3, data: funded_percent_3, color: '#3498db', pointStart: Date.now()-24*3600*1000+11*3600*1000, pointInterval: 3600 * 1000}], 
+
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+          }
+        }
+      }]
+    }
+  })
+</script>
